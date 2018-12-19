@@ -7,11 +7,11 @@
 /src/3-Domain/MinutoSeguros.Domain/obj/
 /src/3-Domain/MinutoSeguros.Domain/bin/
 
-/src/4-Infra/MinutoSeguros.DI/obj/
-/src/4-Infra/MinutoSeguros.DI/bin/
+/src/4-Infra/MinutoSeguros.Infra.DI/obj/
+/src/4-Infra/MinutoSeguros.Infra.DI/bin/
 
-/src/4-Infra/MinutoSeguros.Http/obj/
-/src/4-Infra/MinutoSeguros.Http/bin/
+/src/4-Infra/MinutoSeguros.Infra.Http/obj/
+/src/4-Infra/MinutoSeguros.Infra.Http/bin/
 
 /src/5-Test/MinutoSeguros.SeleniumTest/obj/
 /src/5-Test/MinutoSeguros.SeleniumTest/bin/
