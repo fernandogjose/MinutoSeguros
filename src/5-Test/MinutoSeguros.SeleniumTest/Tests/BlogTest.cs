@@ -7,7 +7,7 @@ using Xunit;
 namespace MinutoSeguros.SeleniumTest.Tests {
 
     // A aplicação precisa estar de pé para funcionar
-    // O appsettings.json e o Driver (exe) precisa estar na raiz que o site esta rodando no caso de debug no bin/debug/netcoreapp2.2    
+    // O appsettings.json e o Driver (exe) precisam estar na raiz que o site esta rodando no caso de debug no bin/debug/netcoreapp2.2    
 
     public class BlogTest : BaseTest {
 

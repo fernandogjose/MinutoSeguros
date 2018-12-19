@@ -20,11 +20,5 @@ namespace MinutoSeguros.SeleniumTest.Screens {
             string title = _driver.GetHtml(By.Id("title"));
             return title;
         }
-
-        public string GetError () {
-            WaitByHtml (TimeSpan.FromSeconds (10), By.Id ("error"));
-            string error = _driver.GetHtml(By.Id("error"));
-            return error;
-        }
     }
 }
