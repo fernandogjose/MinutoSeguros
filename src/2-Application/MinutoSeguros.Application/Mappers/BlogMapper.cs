@@ -10,8 +10,9 @@ namespace MinutoSeguros.Application.Mappers {
 
         private readonly List<string> _wordsExceptions;
 
-        public BlogMapper()
-        {
+        public BlogMapper () {
+
+            // aqui eu pensei em fazer com regex ou incluir em um banco de dados e carrego quando sobe a aplicação e deixo em memória
             _wordsExceptions = new List<string> ();
             _wordsExceptions.Add ("a");
             _wordsExceptions.Add ("e");
@@ -56,7 +57,6 @@ namespace MinutoSeguros.Application.Mappers {
             return blog;
         }
 
-
         private BlogItemViewModel GetBlogItem (XElement item) {
             BlogItemViewModel blogItem = new BlogItemViewModel ();
 
@@ -75,14 +75,15 @@ namespace MinutoSeguros.Application.Mappers {
                     blogItem.Image = "https://www.minutoseguros.com.br/blog/wp-content/uploads/2018/12/para-brisa-trincado-conclusao.jpg";
                 }
 
+                // Recupera as categorias
                 blogItem.Categories = new List<string> ();
                 foreach (var category in item.Elements ("category")) {
                     blogItem.Categories.Add (category.Value);
                 }
 
-                // adiciona as melhores palavras para o item
+                // adiciona as melhores palavras para o item pelo titulo e descricao
                 blogItem.BestWords = ListBestWords (blogItem.BestWords, blogItem.Title);
-                blogItem.BestWords = ListBestWords (blogItem.BestWords, blogItem.Description);
+                blogItem.BestWords = ListBestWords (blogItem.BestWords, blogItem.Title);
 
             } catch {
                 // TODO:: Fazer algum tratamento de erro
@@ -95,7 +96,7 @@ namespace MinutoSeguros.Application.Mappers {
             var words = wordRequest.Split (' ');
 
             foreach (var word in words) {
-                if (string.IsNullOrEmpty (word.Trim ()) || _wordsExceptions.Any (x => x == word.ToLower ()))
+                if (string.IsNullOrEmpty (word.Trim ()) || _wordsExceptions.Any (x => x == word.ToLower () || word.Length <= 3))
                     continue;
 
                 var wordInBestWords = bestWords.FirstOrDefault (x => x.Word == word.ToLower ());
@@ -111,15 +112,19 @@ namespace MinutoSeguros.Application.Mappers {
 
         public BlogViewModel XmlElementToViewModel (XElement xElementRequest) {
 
+            // recuperando o channel do xml
             XElement channel = xElementRequest.Element ("channel");
 
+            // recuperando o header do blog
             BlogViewModel blog = GetBlog (channel);
 
+            // recuperando os itens do blog
             foreach (XElement item in channel.Elements ("item").OrderByDescending (x => Convert.ToDateTime (x.Element ("pubDate").Value)).Take (10)) {
                 BlogItemViewModel blogItem = GetBlogItem (item);
 
+                // calculando as melhores palavras no titulo e na descricao
                 blog.BestWords = ListBestWords (blog.BestWords, blogItem.Title);
-                blog.BestWords = ListBestWords (blog.BestWords, blogItem.Description);
+                blog.BestWords = ListBestWords (blog.BestWords, blogItem.Title);
                 blog.BlogItens.Add (blogItem);
             }
 

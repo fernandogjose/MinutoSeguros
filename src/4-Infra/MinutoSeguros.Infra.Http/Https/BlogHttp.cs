@@ -17,8 +17,8 @@ namespace MinutoSeguros.Infra.Http.Https {
 
                 // TODO:: Criar exceptions próprias para tratar o erro
 
-                // Volta um erro amigável
-                throw new Exception ("Não foi possível carregar o xml do blog, favor tentar novamente mais tarde");
+                // Volta null, depois que tiver os tratamentos de erro não volta mais null
+                return null;
             }
 
         }

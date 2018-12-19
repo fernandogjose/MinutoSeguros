@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\2-Application\MinutoSeguros.Application\MinutoSeguros.Application.csproj" />
-    <ProjectReference Include="..\..\3-Application\MinutoSeguros.Domain\MinutoSeguros.Domain.csproj" />
+    <ProjectReference Include="..\..\3-Domain\MinutoSeguros.Domain\MinutoSeguros.Domain.csproj" />
     <ProjectReference Include="..\MinutoSeguros.Infra.Http\MinutoSeguros.Infra.Http.csproj" />
   </ItemGroup>
 

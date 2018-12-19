@@ -20,6 +20,7 @@ namespace MinutoSeguros.Domain.Services {
         public XElement LoadXml (string xmlRequest) {
             _blogValidation.ValidateXmlRequest (xmlRequest); // Fiz com parametro só para poder fazer uma regra de negócio
             XElement xmlResponse = _blogHttp.LoadXml (xmlRequest);
+            _blogValidation.ValidateXmlResponse (xmlResponse);
             return xmlResponse;
         }
     }

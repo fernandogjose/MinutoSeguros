@@ -1,0 +1,88 @@
+﻿@model MinutoSeguros.Application.ViewModels.BlogViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+  </ol>
+
+  <div class="carousel-inner">
+    <div class="item active carousel-1">
+      <img src="~/img/topo.jpg" alt="Minuto Seguro" class="carousel-img">
+      <div class="carousel-caption">
+        @if(Model == null || string.IsNullOrEmpty(Model.Title)){
+            <h2>Blog Minuto Seguros</h2>
+            <p>Bem vindo ao nosso blog</p>
+        } else {
+            <h2 id="title">@Model.Title</h2>
+            <p>@Model.Description</p>
+        } 
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">voltar</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">próximo</span>
+  </a>
+</div>
+
+<!-- blog -->
+@if(Model == null || string.IsNullOrEmpty(Model.Title)){
+    <div class="container div-error">
+        <label class="span-error" id="error">Vai tomar um café e volta mais tarde que te garando que estará tudo certo</label>
+    </div>
+} else {
+    <section class="details-card">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.BlogItens)
+                {
+                <div class="col-md-4">
+                    <div class="card-content">
+                        <div class="card-img">
+                            <img src="@item.Image" alt="@item.Title">
+                            <span><h4>@item.PubDate.ToString("dd/MM/yyyy")</h4></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3>@item.Title</h3>
+                            <div class="description">@Html.Raw(item.Description)</div>
+                            <p class="bold">Palavras mais usadas</p>
+                            <p>
+                                @foreach (var bestWord in item.BestWords.OrderByDescending(x=>x.Quantity).Take(10))
+                                {
+                                    <span>@bestWord.Word (@bestWord.Quantity), </span>
+                                }
+                            </p>
+                            <a href="@item.Link" class="btn-card">ler mais</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Palavras mais usadas em todos -->
+            <div class="alert alert-success" role="alert">
+                Palavras mais usadas em todas matérias: 
+                @{
+                string separator = "";
+                foreach (var bestWord in Model.BestWords.OrderByDescending(x=>x.Quantity).Take(10))
+                {
+                    <span>@separator @bestWord.Word (@bestWord.Quantity)</span>
+                    separator = ",";
+                }
+                }
+            </div>
+        </div>
+    </section>
+    }
