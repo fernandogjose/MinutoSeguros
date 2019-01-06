@@ -6,8 +6,7 @@ namespace MinutoSeguros.SeleniumTest.Utils
 {
     public static class WebDriverFactory
     {
-        public static IWebDriver CreateWebDriver(
-            Browser browser, string pathDriver, bool headless)
+        public static IWebDriver CreateWebDriver(Browser browser, string pathDriver, bool headless)
         {
             IWebDriver webDriver = null;
 

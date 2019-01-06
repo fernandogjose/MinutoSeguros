@@ -17,7 +17,7 @@ namespace MinutoSeguros.SeleniumTest.Screens {
             _configuration = configuration;
             _browser = browser;
 
-            string driver = Directory.GetCurrentDirectory ();
+            string driver = _configuration.GetSection ("Selenium:Drivers:Path").Value;
             _driver = WebDriverFactory.CreateWebDriver (browser, driver, false); // headless = false = abrir browser ---- headless = true = não abrir browser
         }
 
